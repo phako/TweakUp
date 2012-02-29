@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<dlna-profiles>
+  <include ref="ac3.xml" />
+  <dlna-profile name="AC3" mime="audio/vnd.dolby.dd-raw">
+    <parent name="AC3" />
+  </dlna-profile>
+
+  <dlna-profile name="EAC3" mime="audio/eac3">
+    <parent name="EAC3" />
+  </dlna-profile>
+</dlna-profiles>

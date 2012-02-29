@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+
+<dlna-profiles>
+  <include ref="common.xml" />
+  <include ref="aac.xml" />
+  <include ref="mpeg4.xml" />
+
+  <dlna-profile id="H263_P0_L10">
+    <restriction type="video">
+      <parent name="H263_P0_L10" />
+      <parent name="QCIF" />
+    </restriction>
+
+    <restriction type="video">
+      <parent name="H263_P0_L10" />
+      <parent name="SQCIF" />
+    </restriction>
+  </dlna-profile>
+
+  <dlna-profile name="MPEG4_P2_MP4_SP_AAC" mime="video/mp4" base-profile="SP_L3" id="SP_L3_MP4">
+    <parent name="MP4" />
+    <restriction type="audio">
+      <parent name="AAC" />
+
+      <!--
+        FIXME: this is a conservative bitrate (system bitrate (600 kbps) -
+        maximum possible video bitrate (384 kbps)), to avoid blowing up the
+        number of possible profiles again. Eventually we need a better way to
+        do this.
+      -->
+      <field name="bitrate" type="int">
+        <range min="1" max="216000" />
+      </field>
+    </restriction>
+  </dlna-profile>
+
+  <dlna-profile name="MPEG4_P2_MP4_SP_AAC_LTP" mime="video/mp4"
+    base-profile="SP_L3" id="SP_L3_MP4_AAC_LTP">
+    <parent name="MP4" />
+    <restriction type="audio">
+      <parent name="AAC" />
+
+      <field name="profile" type="string">
+        <value>ltp</value>
+      </field>
+      <!-- FIXME: see note for MPEG4_P2_MP4_SP_AAC bitrate -->
+      <field name="bitrate" type="int">
+        <range min="1" max="216000" />
+      </field>
+    </restriction>
+  </dlna-profile>
+
+  <dlna-profile name="MPEG4_P2_MP4_SP_VGA_AAC" mime="video/mp4" id="SP_L3_VGA">
+    <parent name="MP4" />
+
+    <restriction type="video">
+      <parent name="SP_L3_VGA" />
+      <parent name="VGA" />
+    </restriction>
+
+    <restriction type="video">
+      <parent name="SP_L3_VGA" />
+      <parent name="VGA_16:9" />
+    </restriction>
+
+    <restriction type="audio">
+      <parent name="AAC" />
+
+      <field name="bitrate" type="int">
+        <range min="1" max="256000" />
+      </field>
+    </restriction>
+  </dlna-profile>
+
+  <dlna-profile name="MPEG4_P2_MP4_SP_L2_AAC" mime="video/mp4" id="SP_L2_AAC">
+    <parent name="MP4" />
+
+    <restriction type="audio">
+      <parent name="AAC" />
+      <field name="bitrate" type="int">
+        <range min="1" max="128000" />
+      </field>
+    </restriction>
+
+    <restriction type="video">
+      <parent name="SP_L2" />
+      <parent name="CIF" />
+      <parent name="15fps" />
+      <field name="pixel-aspect-ratio" type="fraction">
+        <value>12/11</value>
+        <value>16/11</value>
+      </field>
+    </restriction>
+
+    <restriction type="video">
+      <parent name="SP_L2" />
+      <parent name="QVGA_4:3" />
+      <parent name="15fps" />
+      <field name="pixel-aspect-ratio" type="fraction">
+        <value>1/1</value>
+      </field>
+    </restriction>
+
+    <restriction type="video">
+      <parent name="SP_L2" />
+      <parent name="QVGA_16:9" />
+      <parent name="15fps" />
+      <field name="pixel-aspect-ratio" type="fraction">
+        <value>1/1</value>
+      </field>
+    </restriction>
+
+    <restriction type="video">
+      <parent name="SP_L2" />
+      <parent name="QCIF" />
+      <parent name="30fps" />
+      <field name="pixel-aspect-ratio" type="fraction">
+        <value>12/11</value>
+        <value>16/11</value>
+      </field>
+    </restriction>
+
+    <restriction type="video">
+      <parent name="SP_L2" />
+      <parent name="SQCIF" />
+      <parent name="30fps" />
+      <field name="pixel-aspect-ratio" type="fraction">
+        <value>12/11</value>
+        <value>16/11</value>
+      </field>
+    </restriction>
+  </dlna-profile>
+
+  <dlna-profile name="MPEG4_H263_MP4_P0_L10_AAC" mime="video/3gpp"
+    base-profile="H263_P0_L10" id="MPEG4_H263_MP4_P0_L10_AAC">
+    <parent name="3GP" />
+
+    <restriction type="audio">
+      <parent name="AAC" />
+      <!-- FIXME: see note for MPEG4_P2_MP4_SP_AAC bitrate, system bitrate
+           here is <= 150 kbps -->
+      <field name="bitrate" type="int">
+        <range min="1" max="86000" />
+      </field>
+    </restriction>
+  </dlna-profile>
+
+  <dlna-profile name="MPEG4_H263_MP4_P0_L10_AAC_LTP" mime="video/3gpp"
+    base-profile="H263_P0_L10" id="MPEG4_H263_MP4_P0_L10_AAC_LTP">
+    <parent name="3GP" />
+
+    <restriction type="audio">
+      <parent name="AAC" />
+      <field name="profile" type="string">
+        <value>ltp</value>
+      </field>
+      <!-- FIXME: see note for MPEG4_P2_MP4_SP_AAC bitrate, system bitrate
+           here is <= 150 kbps -->
+      <field name="bitrate" type="int">
+        <range min="1" max="86000" />
+      </field>
+    </restriction>
+  </dlna-profile>
+</dlna-profiles>

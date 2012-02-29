@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+
+<dlna-profiles>
+  <include ref="common.xml" />
+  <include ref="aac.xml" />
+  <include ref="mp3.xml" />
+  <include ref="ac3.xml" />
+
+  <dlna-profile name="AVC_MP4_BL_CIF15_AAC" mime="video/mp4"
+    base-profile="AVC_MP4_BL_CIF15">
+
+    <restriction type="audio">
+      <parent name="AAC" />
+      <!-- system bitrate <= 600 kbps, video bitrate <= 384 kbps, so assuming a
+           container overhead of 16 kbps, audio bitrate <= 200 kbps -->
+      <field name="bitrate" type="int">
+        <range min="1" max="200000" />
+      </field>
+    </restriction>
+  </dlna-profile>
+
+  <dlna-profile name="AVC_MP4_BL_L3L_SD_AAC" mime="video/mp4">
+    <parent name="MP4" />
+
+    <parent name="AVC_BL_L3_AAC" />
+
+    <!--
+      Note: the AVC_MP4_BL_L3L_SD_AAC resolutions are missing from the DLNA
+      spec, so I'm just reusing the ones from AVC_MP4_L3_SD_AAC.
+    -->
+
+    <restriction type="video">
+      <parent name="AVC_BL_L3L" />
+      <parent name="AVC_BL_625_D1" />
+    </restriction>
+
+    <restriction type="video" used="in-strict">
+      <parent name="AVC_BL_L3L" />
+      <parent name="AVC_BL_525_D1" />
+    </restriction>
+
+    <restriction type="video" used="in-strict">
+      <parent name="AVC_BL_L3L" />
+      <parent name="AVC_BL_VGA" />
+    </restriction>
+
+    <restriction type="video" used="in-strict">
+      <parent name="AVC_BL_L3L" />
+      <parent name="AVC_BL_VGA_16:9" />
+    </restriction>
+  </dlna-profile>
+
+  <dlna-profile name="AVC_MP4_BL_L3_SD_AAC" mime="video/mp4">
+    <parent name="MP4" />
+
+    <parent name="AVC_BL_L3_AAC" />
+
+    <restriction type="video">
+      <parent name="AVC_BL_L3" />
+      <parent name="AVC_BL_625_D1" />
+    </restriction>
+
+    <restriction type="video" used="in-strict">
+      <parent name="AVC_BL_L3" />
+      <parent name="AVC_BL_525_D1" />
+    </restriction>
+
+    <restriction type="video" used="in-strict">
+      <parent name="AVC_BL_L3" />
+      <parent name="AVC_BL_VGA" />
+    </restriction>
+
+    <restriction type="video" used="in-strict">
+      <parent name="AVC_BL_L3" />
+      <parent name="AVC_BL_VGA_16:9" />
+    </restriction>
+  </dlna-profile>
+
+  <dlna-profile name="AVC_MP4_MP_SD_AAC_MULT5" mime="video/mp4"
+    base-profile="AVC_MP4_MP_SD">
+
+    <parent name="AAC-MULT5" />
+  </dlna-profile>
+
+  <dlna-profile name="AVC_MP4_MP_SD_MPEG1_L3" mime="video/mp4"
+    base-profile="AVC_MP4_MP_SD">
+
+    <parent name="MP3" />
+  </dlna-profile>
+
+  <dlna-profile name="AVC_MP4_MP_HD_720p_AAC" mime="video/mp4">
+    <parent name="MP4" />
+    <parent name="AAC-576" />
+
+    <restriction type="video">
+      <parent name="AVC_MP4_MP_HD_720p" />
+      <parent name="1280x720" />
+      <parent name="30fps" />
+    </restriction>
+
+    <restriction type="video">
+      <parent name="AVC_MP4_MP_HD_720p" />
+      <parent name="VGA" />
+      <parent name="60fps" />
+    </restriction>
+  </dlna-profile>
+
+  <dlna-profile name="AVC_MP4_MP_HD_1080i_AAC" mime="video/mp4">
+    <parent name="MP4" />
+    <parent name="AAC-576" />
+
+    <restriction type="video">
+      <parent name="AVC_MP4_MP_HD_1080i" />
+      <parent name="1920x1080" />
+      <parent name="30fps" />
+      <field name="interlaced" type="boolean">
+        <value>true</value>
+      </field>
+    </restriction>
+
+    <restriction type="video">
+      <parent name="AVC_MP4_MP_HD_1080i" />
+      <parent name="1280x720" />
+      <parent name="60fps" />
+    </restriction>
+  </dlna-profile>
+
+</dlna-profiles>

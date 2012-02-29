@@ -27,6 +27,11 @@ Page {
                 spacing: 24
                 id: column
 
+                Separator {
+                    width: parent.width
+                    text: qsTr("Configuration")
+                }
+
                 LabelledSwitch {
                     width: column.width
                     text: qsTr("Share files without profile")
@@ -40,18 +45,7 @@ Page {
 
                 LabelledSwitch {
                     width: column.width
-                    text: qsTr("Extended media profiles")
-                    checked: upnpSettings.extendedMediaProfiles
-                    onCheckedChanged: {
-                        if (checked != upnpSettings.extendedMediaProfiles) {
-                            upnpSettings.extendedMediaProfiles = checked;
-                        }
-                    }
-                }
-
-                LabelledSwitch {
-                    width: column.width
-                    text: qsTr("Enable uploading")
+                    text: qsTr("Allow uploading")
                     checked: upnpSettings.allowUpload
                     onCheckedChanged: {
                         if (checked != upnpSettings.allowUpload) {
@@ -64,8 +58,9 @@ Page {
                 LabelledSwitch {
                     id: lswAllowRemove
                     enabled: upnpSettings.allowUpload
+                    indent: true
                     width: column.width
-                    text: qsTr("Enable removal of uploaded media")
+                    text: qsTr("Allow removing")
                     checked: upnpSettings.allowRemoveUpload
                     onCheckedChanged: {
                         if (checked != upnpSettings.allowRemoveUpload) {
@@ -93,6 +88,22 @@ Page {
                     onTextChanged: {
                         if (tfFriendlyName.text !== upnpSettings.friendlyName) {
                             upnpSettings.friendlyName = tfFriendlyName.text;
+                        }
+                    }
+                }
+
+                Separator {
+                    width: parent.width
+                    text: qsTr("Media profiles")
+                }
+
+                LabelledSwitch {
+                    width: column.width
+                    text: qsTr("Extended media profiles")
+                    checked: upnpSettings.extendedMediaProfiles
+                    onCheckedChanged: {
+                        if (checked != upnpSettings.extendedMediaProfiles) {
+                            upnpSettings.extendedMediaProfiles = checked;
                         }
                     }
                 }

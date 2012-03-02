@@ -5,15 +5,15 @@ import com.nokia.meego 1.0
 Item {
     property alias checked: swInternalSwitch.checked
     property alias text: lblInternalLabel.text
+    property bool indent: false
 
-    height: swInternalSwitch.height + 10
+    height: Math.max(swInternalSwitch.height, lblInternalLabel.height)
+    onWidthChanged: lblInternalLabel.width = width - swInternalSwitch.width - lblInternalLabel.anchors.leftMargin - 10
 
     Label {
-        elide: Text.ElideRight
+        wrapMode: Text.WordWrap
         anchors.left: parent.left
-        anchors.leftMargin: 10
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.horizontalCenter: swInternalSwitch.horizontalCenter
+        anchors.leftMargin: indent ? 40 : 10;
         id: lblInternalLabel
         font.pixelSize: 26
         font.bold: true
@@ -24,6 +24,9 @@ Item {
         id: swInternalSwitch
         anchors.rightMargin: 10
         anchors.right: parent.right
-        anchors.verticalCenter: parent.verticalCenter
+        anchors.verticalCenter: lblInternalLabel.verticalCenter
+        onWidthChanged: {
+            console.log(width)
+        }
     }
 }

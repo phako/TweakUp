@@ -3,7 +3,6 @@ import com.nokia.meego 1.0
 
 Page {
     id: pgMain
-    tools: commonTools
     orientationLock: lockInPortrait
 
     Flickable {
@@ -34,6 +33,17 @@ Page {
 
                 LabelledSwitch {
                     width: column.width
+                    text: qsTr("Audio transcoding")
+                    checked: upnpSettings.lpcmTranscoding
+                    onCheckedChanged: {
+                        if (checked != upnpSettings.lpcmTranscoding) {
+                            upnpSettings.lpcmTranscoding = checked;
+                        }
+                    }
+                }
+
+                LabelledSwitch {
+                    width: column.width
                     text: qsTr("Share files without profile")
                     checked: !upnpSettings.strictSharing
                     onCheckedChanged: {
@@ -45,7 +55,7 @@ Page {
 
                 LabelledSwitch {
                     width: column.width
-                    text: qsTr("Allow uploading")
+                    text: qsTr("Other UPnP devices may upload media files to the phone")
                     checked: upnpSettings.allowUpload
                     onCheckedChanged: {
                         if (checked != upnpSettings.allowUpload) {
@@ -60,7 +70,7 @@ Page {
                     enabled: upnpSettings.allowUpload
                     indent: true
                     width: column.width
-                    text: qsTr("Allow removing")
+                    text: qsTr("UPnP devices may remove files uploaded via UPnP")
                     checked: upnpSettings.allowRemoveUpload
                     onCheckedChanged: {
                         if (checked != upnpSettings.allowRemoveUpload) {
@@ -85,52 +95,18 @@ Page {
                     anchors.right: parent.right
                     anchors.rightMargin: 10
                     text: upnpSettings.friendlyName
-                    onTextChanged: {
+
+                    onActiveFocusChanged: {
+                        if ((!activeFocus) && (tfFriendlyName.text !== upnpSettings.friendlyName)) {
+                            upnpSettings.friendlyName = tfFriendlyName.text;
+                        }
+                    }
+
+                    Keys.onReturnPressed: {
                         if (tfFriendlyName.text !== upnpSettings.friendlyName) {
                             upnpSettings.friendlyName = tfFriendlyName.text;
                         }
                     }
-                }
-
-                Separator {
-                    width: parent.width
-                    text: qsTr("Media profiles")
-                }
-
-                LabelledSwitch {
-                    width: column.width
-                    text: qsTr("Extended media profiles")
-                    checked: upnpSettings.extendedMediaProfiles
-                    onCheckedChanged: {
-                        if (checked != upnpSettings.extendedMediaProfiles) {
-                            upnpSettings.extendedMediaProfiles = checked;
-                        }
-                    }
-                }
-
-                ProgressBar {
-                    id: pbIndexing
-                    anchors.left: parent.left
-                    anchors.leftMargin: 10
-                    anchors.right: parent.right
-                    anchors.rightMargin: 10
-                    width: parent.width
-                    Connections {
-                        target: mediaIndexer
-                        onProgress: pbIndexing.value = currentProgress
-                    }
-                }
-
-                Button {
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    text: qsTr("Rescan media files")
-                    onClicked: mediaIndexer.run()
-                }
-
-                Button{
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    text: qsTr("Click here!")
-                    onClicked: upnpSettings.sync()
                 }
             }
         }
@@ -145,7 +121,7 @@ Page {
         id: rtnTitle
         width: parent.width
         height: 70
-        color: "dark cyan"
+        color: "black"
 
         Label {
             id: text

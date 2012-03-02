@@ -37,7 +37,8 @@ PKGCONFIG += glib-2.0
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
     rygelsettings.cpp \
-    mediaindexer.cpp
+    mediaindexer.cpp \
+    keyfile.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -54,6 +55,7 @@ OTHER_FILES += \
 
 HEADERS += \
     rygelsettings.h \
-    mediaindexer.h
+    mediaindexer.h \
+    keyfile.h
 
 DEFINES += QT_NO_CAST_TO_ASCII QT_NO_CAST_FROM_ASCII

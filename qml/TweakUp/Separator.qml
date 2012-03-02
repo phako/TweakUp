@@ -14,7 +14,7 @@ Item {
         color: parent.color
         anchors.rightMargin: 5
         anchors.left: parent.left
-        width: parent.width - txtInternal.width - 10
+        width: parent.width - txtInternal.width - 30
         height: 2
         anchors.verticalCenter: txtInternal.verticalCenter
     }
@@ -25,7 +25,7 @@ Item {
         color: parent.color
         font {
             pixelSize: 20
-            italic: true
+            //italic: true
         }
     }
 }

@@ -58,4 +58,12 @@ HEADERS += \
     mediaindexer.h \
     keyfile.h
 
+xml.files += \
+    data/xml/avc-eac3.xml \
+    data/xml/png.xml \
+    data/xml/png-extra.xml
+xml.path = /usr/share/gupnp-dlna/dlna-profiles
+
+INSTALLS += xml
+
 DEFINES += QT_NO_CAST_TO_ASCII QT_NO_CAST_FROM_ASCII

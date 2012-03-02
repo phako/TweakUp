@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+
+<!-- Corrected AVC_MP4_MP_SD_EAC3 and AVC_MP4_HP_EAC3 profile definition -->
+
+<dlna-profiles>
+  <include ref="common.xml" />
+  <include ref="ac3.xml" />
+  <include ref="avc.xml" />
+
+  <restrictions>
+    <restriction id="50fps" type="video">
+      <field name="framerate" type="fraction">
+        <range min="0/1" max="50/1" />
+      </field>
+    </restriction>
+
+    <restriction id="59.94fps" type="video">
+      <field name="framerate" type="fraction">
+        <range min="0/1" max="60000/1001" />
+      </field>
+    </restriction>
+
+    <restriction id="upto1920x1080" type="video">
+      <field name="width" type="int">
+        <range min="1" max="1920" />
+      </field>
+      <field name="height" type="int">
+        <range min="1" max="1080" />
+      </field>
+    </restriction>
+
+    <restriction id="upto1280x720" type="video">
+      <field name="width" type="int">
+        <range min="1" max="1280" />
+      </field>
+      <field name="height" type="int">
+        <range min="1" max="720" />
+      </field>
+    </restriction>
+
+    <restriction id="AVC-L4" type="video">
+      <field name="name" type="string">
+        <value>video/x-h264</value>
+      </field>
+
+      <field name="level" type="string">
+        <value>1</value>
+        <value>1b</value>
+        <value>1.1</value>
+        <value>1.2</value>
+        <value>1.3</value>
+        <value>2</value>
+        <value>2.1</value>
+        <value>2.2</value>
+        <value>3</value>
+        <value>3.1</value>
+        <value>3.2</value>
+        <value>4</value>
+      </field>
+    </restriction>
+
+    <restriction id="EAC3-3024" type="audio">
+      <parent name="EAC3" />
+      <field name="bitrate" type="int" used="in-strict">
+        <range min="0" max="3024000" />
+      </field>
+    </restriction>
+  </restrictions>
+
+  <dlna-profile name="AVC_MP4_MP_SD_EAC3" mime="video/mp4" >
+    <parent name="MP4" />
+    <parent name="EAC3-3024" />
+
+    <restriction type="video">
+      <parent name="AVC_MP" />
+      <parent name="25fps" used="in-strict" />
+      <field name="width" type="int">
+        <range min="1" max="864" />
+      </field>
+      <field name="height" type="int" used="in-relaxed">
+        <range min="1" max="576" />
+      </field>
+      <field name="height" type="int" used="in-strict">
+        <range min="1" max="480" />
+      </field>
+    </restriction>
+
+    <restriction type="video" used="in-strict">
+      <parent name="AVC_MP" />
+      <parent name="625_D1" />
+      <parent name="50fps" />
+    </restriction>
+    <restriction type="video" used="in-strict">
+      <parent name="AVC_MP" />
+      <parent name="525_D1" />
+      <parent name="60fps" />
+    </restriction>
+    <restriction type="video" used="in-strict">
+      <parent name="AVC_MP" />
+      <parent name="VGA" />
+      <parent name="30fps" />
+    </restriction>
+  </dlna-profile>
+
+   <dlna-profile name="AVC_MP4_HP_HD_EAC3" mime="video/mp4">
+    <parent name="MP4" />
+    <parent name="AVC-L4" />
+    <parent name="EAC3-3024" />
+
+    <restriction type="video">
+      <field name="profile" type="string">
+        <value>high</value>
+        <value>main</value>
+        <value>baseline</value>
+      </field>
+      <field name="bitrate" type="int" used="in-strict">
+        <range min="0" max="25000000" />
+      </field>
+    </restriction>
+
+    <restriction type="video" used="in-relaxed">
+      <parent name="upto1920x1080" />
+      <parent name="60fps" />
+    </restriction>
+
+    <!-- Also applies to discrete 1280x1080 and 1440x1080  -->
+    <restriction type="video" used="in-strict">
+      <parent name="upto1920x1080" />
+      <parent name="59.94fps" />
+      <field name="interlaced" type="boolean">
+        <value>true</value>
+      </field>
+    </restriction>
+    <restriction type="video" used="in-strict">
+      <parent name="upto1920x1080" />
+      <parent name="50fps" />
+      <field name="interlaced" type="boolean">
+        <value>true</value>
+      </field>
+    </restriction>
+    <restriction type="video" used="in-strict">
+      <parent name="upto1920x1080" />
+      <parent name="29.97fps" />
+    </restriction>
+    <restriction type="video" used="in-strict">
+      <parent name="upto1920x1080" />
+      <parent name="25fps" />
+    </restriction>
+
+    <!-- Also applies to 960x720 -->
+    <restriction type="video" used="in-strict">
+      <parent name="upto1280x720" />
+      <parent name="59.94fps" />
+    </restriction>
+    <restriction type="video" used="in-strict">
+      <parent name="upto1280x720" />
+      <parent name="50fps" />
+    </restriction>
+
+  </dlna-profile>
+</dlna-profiles>

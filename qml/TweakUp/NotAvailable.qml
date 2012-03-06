@@ -7,7 +7,7 @@ Page {
         width: parent.width
         font.pixelSize: 76
         color: "#333"
-        text: qsTr("Network media sharing is not available on this device")
+        text: qsTr("Network media sharing is not available in this version. Please update to PR1.2 if available")
         anchors.centerIn: parent
         wrapMode: Text.WordWrap
         horizontalAlignment: Text.AlignHCenter

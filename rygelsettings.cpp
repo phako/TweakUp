@@ -124,6 +124,10 @@ void RygelSettings::setLPCMTranscoding(bool enable)
 
 bool RygelSettings::running() const
 {
+    if (m_rygel == 0) {
+        return false;
+    }
+
     QDBusMessage reply = m_rygel->call(QLatin1String("ListNames"));
     return reply.arguments().first().toStringList().contains(QLatin1String("org.gnome.Rygel1"));
 }

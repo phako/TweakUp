@@ -4,7 +4,7 @@ Version=1.0
 Type=Application
 Terminal=false
 Name=TweakUp
-Exec=/usr/bin/invoker --type=d -s /opt/TweakUp/bin/TweakUp
+Exec=/usr/bin/invoker --single-instance --type=d -s /opt/TweakUp/bin/TweakUp
 Icon=/usr/share/icons/hicolor/80x80/apps/TweakUp80.png
 X-Window-Icon=
 X-HildonDesk-ShowInToolbar=true

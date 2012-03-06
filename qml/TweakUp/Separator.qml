@@ -13,13 +13,15 @@ Item {
     Rectangle {
         color: parent.color
         anchors.rightMargin: 5
+        anchors.leftMargin: 5
         anchors.left: parent.left
-        width: parent.width - txtInternal.width - 30
+        width: parent.width - (txtInternal.visible ? (txtInternal.width + 30) : 0)
         height: 2
         anchors.verticalCenter: txtInternal.verticalCenter
     }
 
     Text {
+        visible: text !== ""
         anchors.right: parent.right
         id: txtInternal
         color: parent.color

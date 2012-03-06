@@ -26,6 +26,11 @@ Page {
                 spacing: 24
                 id: column
 
+                Separator {
+                    width: parent.width
+                    visible: button.visible && button.opacity != 0
+                }
+
                 Button {
                     visible: upnpSettings.running
                     id: button

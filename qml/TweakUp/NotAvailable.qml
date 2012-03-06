@@ -5,7 +5,7 @@ import com.nokia.meego 1.0
 Page {
     Label {
         width: parent.width
-        font.pixelSize: 76
+        font.pixelSize: 72
         color: "#333"
         text: qsTr("Network media sharing is not available in this version. Please update to PR1.2 if available")
         anchors.centerIn: parent

@@ -26,6 +26,21 @@ Page {
                 spacing: 24
                 id: column
 
+                Button {
+                    visible: upnpSettings.running
+                    id: button
+                    opacity: 0
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    text: qsTr("Restart media-sharing")
+                    Connections {
+                        target: upnpSettings
+                        onDirtyChanged: fade.start()
+                    }
+
+                    onClicked: upnpSettings.restart();
+                }
+
                 Separator {
                     width: parent.width
                     text: qsTr("Configuration")
@@ -115,21 +130,6 @@ Page {
                     property: "opacity"
                     to: upnpSettings.dirty ? 1.0 : 0
                     duration: 200
-                }
-
-                Button {
-                    visible: upnpSettings.running
-                    id: button
-                    opacity: 0
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    text: qsTr("Restart media-sharing")
-                    Connections {
-                        target: upnpSettings
-                        onDirtyChanged: fade.start()
-                    }
-
-                    onClicked: upnpSettings.restart();
                 }
             }
         }

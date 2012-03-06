@@ -37,8 +37,7 @@ QT += dbus
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
     rygelsettings.cpp \
-    mediaindexer.cpp \
-    keyfile.cpp
+    mediaindexer.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -55,8 +54,7 @@ OTHER_FILES += \
 
 HEADERS += \
     rygelsettings.h \
-    mediaindexer.h \
-    keyfile.h
+    mediaindexer.h
 
 xml.files += \
     data/xml/avc-eac3.xml \

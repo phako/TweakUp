@@ -3,29 +3,62 @@
 #include <QDebug>
 #include <QDir>
 #include <QFile>
-#include <QtDBus>
 #include <QStringList>
+#include <QtDBus>
 
 RygelSettings::RygelSettings(QObject *parent)
     : QObject(parent)
-    , m_settings(0)
+    , m_keyFile(g_key_file_new())
     , m_available(false)
+    , m_rygel(0)
+    , m_dirty(false)
+    , m_watcher(QLatin1String("org.gnome.Rygel1"), QDBusConnection::sessionBus())
 {
     QFile binary(QLatin1String("/usr/bin/rygel"));
     m_available = binary.exists();
-
-    try {
-        m_settings = new KeyFile(QLatin1String("rygel.conf"));
-    } catch (GerrorException &e) {
-        qWarning() << e.what();
-        m_available = false;
+    if (not m_available) {
+        return;
     }
+
+    QString configDirPath = QString::fromUtf8(g_get_user_config_dir());
+    QDir userConfigDir(configDirPath);
+    QFile userConfigFile(userConfigDir.filePath(QLatin1String("rygel.conf")));
+    m_configFile.setFileName(userConfigFile.fileName());
+
+    // copy system config file to user directory
+    if (not userConfigFile.exists()) {
+        QFile::copy(QLatin1String("/etc/rygel.conf"), userConfigFile.fileName());
+    }
+
+    GError *error = 0;
+
+    g_key_file_load_from_file(m_keyFile,
+                              userConfigFile.fileName().toUtf8().constData(),
+                              G_KEY_FILE_KEEP_COMMENTS,
+                              &error);
+    if (error != 0) {
+        m_available = false;
+        g_error_free (error);
+
+        return;
+    }
+
+    // setup D-Bus connection and check its state
+    m_rygel = new QDBusInterface(QLatin1String("org.freedesktop.DBus"),
+                                 QLatin1String("/"),
+                                 QLatin1String("org.freedesktop.DBus"));
+    connect(&m_watcher,
+            SIGNAL(serviceOwnerChanged(QString,QString,QString)),
+            SIGNAL(runningChanged()));
 }
 
 RygelSettings::~RygelSettings()
 {
-    if (m_settings != 0) {
-        delete m_settings;
+    delete m_rygel;
+    if (m_keyFile != 0) {
+        sync();
+        g_key_file_free(m_keyFile);
+        m_keyFile = 0;
     }
 }
 
@@ -36,60 +69,135 @@ bool RygelSettings::available()
 
 QString RygelSettings::friendlyName() const
 {
-    return m_settings->getString("title", QLatin1String("Media on @DEVICE@"), "Tracker");
+    return getString("title", QLatin1String("Media on @DEVICE@"), "Tracker");
 }
 
 void RygelSettings::setFriendlyName(const QString& friendlyName)
 {
-    m_settings->setString("title", friendlyName, "Tracker");
+    setString("title", friendlyName, "Tracker");
     emit friendlyNameChanged();
 }
 
 bool RygelSettings::strictSharing() const
 {
-    return m_settings->getBool("strict-sharing", true, "Tracker");
+    return getBool("strict-sharing", true, "Tracker");
 }
 
 void RygelSettings::setStrictSharing(bool enable)
 {
-    m_settings->setBool("strict-sharing", enable, "Tracker");
+    setBool("strict-sharing", enable, "Tracker");
     emit friendlyNameChanged();
 }
 
 bool RygelSettings::allowUpload() const
 {
-    return m_settings->getBool("allow-upload", true);
+    return getBool("allow-upload", true);
 }
 
 void RygelSettings::setAllowUpload(bool enable)
 {
-    m_settings->setBool("allow-upload", enable);
+    setBool("allow-upload", enable);
     emit allowUploadChanged();
 }
 
 bool RygelSettings::allowRemoveUpload() const
 {
-    return m_settings->getBool("allow-deletion", true);
+    return getBool("allow-deletion", true);
 }
 
 void RygelSettings::setAllowRemoveUpload(bool enable)
 {
-    m_settings->setBool("allow-deletion", enable);
+    setBool("allow-deletion", enable);
     emit allowRemoveUploadChanged();
 }
 
 bool RygelSettings::lpcmTranscoding() const
 {
-    return m_settings->getBool("enable-lpcm-transcoder", true);
+    return getBool("enable-lpcm-transcoder", true);
 }
 
 void RygelSettings::setLPCMTranscoding(bool enable)
 {
-    m_settings->setBool("enable-lpcm-transcoder", enable);
+    setBool("enable-lpcm-transcoder", enable);
     emit lpcmTranscodingChanged();
+}
+
+bool RygelSettings::running() const
+{
+    QDBusMessage reply = m_rygel->call(QLatin1String("ListNames"));
+    return reply.arguments().first().toStringList().contains(QLatin1String("org.gnome.Rygel1"));
+}
+
+bool RygelSettings::dirty() const
+{
+    return m_dirty;
+}
+
+void RygelSettings::restart()
+{
+    if (m_dirty) {
+        system("pkill -HUP rygel");
+        m_dirty = false;
+        emit dirtyChanged();
+    }
+}
+
+bool RygelSettings::getBool(const char *key, bool defaultValue, const char *section) const
+{
+    gboolean configValue;
+    GError *error = 0;
+
+    configValue = g_key_file_get_boolean(m_keyFile, section, key, &error);
+    if (error == 0) {
+        return configValue == TRUE;
+    }
+
+    return defaultValue;
+}
+
+void RygelSettings::setBool(const char *key, bool newValue, const char *section)
+{
+    g_key_file_set_boolean(m_keyFile, section, key, newValue ? TRUE : FALSE);
+    sync();
+}
+
+QString RygelSettings::getString(const char *key, const QString& defaultValue, const char *section) const
+{
+    char *configValue;
+    GError *error = 0;
+
+    configValue = g_key_file_get_string(m_keyFile, section, key, &error);
+    if (error == 0) {
+        QString result = QString::fromUtf8(configValue);
+        g_free(configValue);
+
+        return result;
+    }
+
+    return defaultValue;
+}
+
+void RygelSettings::setString(const char *key, const QString &newValue, const char *section)
+{
+    g_key_file_set_string(m_keyFile, section, key, newValue.toUtf8().constData());
+    sync();
 }
 
 void RygelSettings::sync()
 {
-    m_settings->sync();
+    GError *error = 0;
+    gsize   length;
+
+    char *data = g_key_file_to_data(m_keyFile, &length, &error);
+    if (m_configFile.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
+        m_configFile.write(data);
+        m_configFile.close();
+    }
+
+    g_free(data);
+
+    if (not m_dirty && running()) {
+        m_dirty = true;
+        emit dirtyChanged();
+    }
 }

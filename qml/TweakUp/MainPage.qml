@@ -108,6 +108,29 @@ Page {
                         }
                     }
                 }
+
+                PropertyAnimation {
+                    id: fade
+                    target: button
+                    property: "opacity"
+                    to: upnpSettings.dirty ? 1.0 : 0
+                    duration: 200
+                }
+
+                Button {
+                    visible: upnpSettings.running
+                    id: button
+                    opacity: 0
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    text: qsTr("Restart media-sharing")
+                    Connections {
+                        target: upnpSettings
+                        onDirtyChanged: fade.start()
+                    }
+
+                    onClicked: upnpSettings.restart();
+                }
             }
         }
     }
@@ -134,6 +157,13 @@ Page {
                 textColor: "white"
                 fontPixelSize: 28
             }
+        }
+
+        Image {
+            anchors.right: parent.right
+            anchors.rightMargin: 16
+            anchors.verticalCenter: parent.verticalCenter
+            source: "image://theme/icon-m-settings-dlna-server"
         }
     }
 }

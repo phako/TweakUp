@@ -20,6 +20,5 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     viewer.setMainQmlFile(QLatin1String("qml/TweakUp/main.qml"));
     viewer.showExpanded();
 
-
     return app->exec();
 }

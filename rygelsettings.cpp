@@ -55,6 +55,7 @@ RygelSettings::RygelSettings(QObject *parent)
 RygelSettings::~RygelSettings()
 {
     delete m_rygel;
+    m_rygel = 0;
     if (m_keyFile != 0) {
         sync();
         g_key_file_free(m_keyFile);

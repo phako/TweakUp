@@ -37,7 +37,7 @@ Page {
                     opacity: 0
                     anchors.left: parent.left
                     anchors.right: parent.right
-                    text: qsTr("Restart media-sharing")
+                    text: qsTr("Synchronize settings")
                     Connections {
                         target: upnpSettings
                         onDirtyChanged: fade.start()
@@ -64,7 +64,7 @@ Page {
 
                 LabelledSwitch {
                     width: column.width
-                    text: qsTr("Share files without profile")
+                    text: qsTr("Share media files that do not have a DLNA profile")
                     checked: !upnpSettings.strictSharing
                     onCheckedChanged: {
                         if (checked == upnpSettings.strictSharing) {

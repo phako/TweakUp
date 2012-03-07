@@ -10,7 +10,7 @@ RygelSettings::RygelSettings(QObject *parent)
     : QObject(parent)
     , m_keyFile(g_key_file_new())
     , m_available(false)
-    , m_rygel(0)
+    , m_fdo(0)
     , m_dirty(false)
     , m_watcher(QLatin1String("org.gnome.Rygel1"), QDBusConnection::sessionBus())
 {
@@ -44,7 +44,7 @@ RygelSettings::RygelSettings(QObject *parent)
     }
 
     // setup D-Bus connection and check its state
-    m_rygel = new QDBusInterface(QLatin1String("org.freedesktop.DBus"),
+    m_fdo = new QDBusInterface(QLatin1String("org.freedesktop.DBus"),
                                  QLatin1String("/"),
                                  QLatin1String("org.freedesktop.DBus"));
     connect(&m_watcher,
@@ -54,8 +54,8 @@ RygelSettings::RygelSettings(QObject *parent)
 
 RygelSettings::~RygelSettings()
 {
-    delete m_rygel;
-    m_rygel = 0;
+    delete m_fdo;
+    m_fdo = 0;
     if (m_keyFile != 0) {
         sync();
         g_key_file_free(m_keyFile);
@@ -125,11 +125,11 @@ void RygelSettings::setLPCMTranscoding(bool enable)
 
 bool RygelSettings::running() const
 {
-    if (m_rygel == 0) {
+    if (m_fdo == 0) {
         return false;
     }
 
-    QDBusMessage reply = m_rygel->call(QLatin1String("ListNames"));
+    QDBusMessage reply = m_fdo->call(QLatin1String("ListNames"));
     return reply.arguments().first().toStringList().contains(QLatin1String("org.gnome.Rygel1"));
 }
 

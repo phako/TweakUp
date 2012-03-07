@@ -67,7 +67,7 @@ private:
 
     GKeyFile           *m_keyFile;
     bool                m_available;
-    QDBusInterface     *m_rygel;
+    QDBusInterface     *m_fdo;
     bool                m_dirty;
     QFile               m_configFile;
     QDBusServiceWatcher m_watcher;

@@ -25,8 +25,5 @@ Item {
         anchors.rightMargin: 10
         anchors.right: parent.right
         anchors.verticalCenter: lblInternalLabel.verticalCenter
-        onWidthChanged: {
-            console.log(width)
-        }
     }
 }

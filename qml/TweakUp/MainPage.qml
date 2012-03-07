@@ -3,7 +3,7 @@ import com.nokia.meego 1.0
 
 Page {
     id: pgMain
-    orientationLock: lockInPortrait
+    orientationLock: PageOrientation.LockPortrait
 
     Flickable {
         id: flckContent

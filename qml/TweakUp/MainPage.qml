@@ -28,11 +28,11 @@ Page {
 
                 Separator {
                     width: parent.width
-                    visible: button.visible && button.opacity != 0
+                    visible: button.visible
                 }
 
                 Button {
-                    visible: upnpSettings.running
+                    visible: button.opacity != 0
                     id: button
                     opacity: 0
                     anchors.left: parent.left

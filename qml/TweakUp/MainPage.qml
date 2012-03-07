@@ -166,6 +166,7 @@ Page {
 
         Image {
             anchors.right: parent.right
+            anchors.leftMargin: 10
             anchors.rightMargin: 16
             anchors.verticalCenter: parent.verticalCenter
             source: "image://theme/icon-m-settings-dlna-server"

@@ -116,8 +116,14 @@ Page {
                     anchors.rightMargin: 10
                     text: upnpSettings.friendlyName
 
+                    onTextChanged: {
+                        if (!activeFocus && tfFriendlyName.text !== upnpSettings.friendlyName) {
+                            upnpSettings.friendlyName = tfFriendlyName.text;
+                        }
+                    }
+
                     onActiveFocusChanged: {
-                        if ((!activeFocus) && (tfFriendlyName.text !== upnpSettings.friendlyName)) {
+                        if (!activeFocus && tfFriendlyName.text !== upnpSettings.friendlyName) {
                             upnpSettings.friendlyName = tfFriendlyName.text;
                         }
                     }

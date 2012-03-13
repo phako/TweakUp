@@ -79,6 +79,17 @@ void RygelSettings::setFriendlyName(const QString& friendlyName)
     emit friendlyNameChanged();
 }
 
+QString RygelSettings::homeWLAN() const
+{
+    return getString("interface", QLatin1String(""));
+}
+
+void RygelSettings::setHomeWLAN(const QString &homeWLAN)
+{
+    setString("interface", homeWLAN);
+    emit homeWLANChanged();
+}
+
 bool RygelSettings::strictSharing() const
 {
     return getBool("strict-sharing", true, "Tracker");

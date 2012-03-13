@@ -135,6 +135,44 @@ Page {
                     }
                 }
 
+                Label {
+                    anchors.left: parent.left
+                    anchors.leftMargin: 10
+                    anchors.right: parent.right
+                    anchors.rightMargin: 10
+                    font.pixelSize: 26
+                    font.bold: true
+                    color: "white"
+                    text: qsTr("Only share when connected to this access point")
+                }
+
+                TextField {
+                    id: tfHomeWLAN
+                    anchors.left: parent.left
+                    anchors.leftMargin: 10
+                    anchors.right: parent.right
+                    anchors.rightMargin: 10
+                    text: upnpSettings.homeWLAN
+
+                    onTextChanged: {
+                        if (!activeFocus && tfHomeWLAN.text !== upnpSettings.homeWLAN) {
+                            upnpSettings.homeWLAN = tfHomeWLAN.text;
+                        }
+                    }
+
+                    onActiveFocusChanged: {
+                        if (!activeFocus && tfHomeWLAN.text !== upnpSettings.homeWLAN) {
+                            upnpSettings.homeWLAN = tfHomeWLAN.text;
+                        }
+                    }
+
+                    Keys.onReturnPressed: {
+                        if (tfHomeWLAN.text !== upnpSettings.homeWLAN) {
+                            upnpSettings.homeWLAN = tfHomeWLAN.text;
+                        }
+                    }
+                }
+
                 PropertyAnimation {
                     id: fade
                     target: button

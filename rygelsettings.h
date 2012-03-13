@@ -12,6 +12,7 @@ class RygelSettings : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString friendlyName READ friendlyName WRITE setFriendlyName NOTIFY friendlyNameChanged)
+    Q_PROPERTY(QString homeWLAN READ homeWLAN WRITE setHomeWLAN NOTIFY homeWLANChanged)
     Q_PROPERTY(bool strictSharing READ strictSharing WRITE setStrictSharing NOTIFY strictSharingChanged)
     Q_PROPERTY(bool lpcmTranscoding READ lpcmTranscoding WRITE setLPCMTranscoding NOTIFY lpcmTranscodingChanged)
     Q_PROPERTY(bool allowUpload READ allowUpload WRITE setAllowUpload NOTIFY allowUploadChanged)
@@ -25,6 +26,8 @@ public:
     QString friendlyName() const;
     void setFriendlyName(const QString& friendlyName);
 
+    QString homeWLAN() const;
+    void setHomeWLAN(const QString& homeWLAN);
 
     bool lpcmTranscoding() const;
     void setLPCMTranscoding(bool enable);
@@ -44,6 +47,7 @@ public:
 
 signals:
     void friendlyNameChanged();
+    void homeWLANChanged();
     void strictSharingChanged();
     void lpcmTranscodingChanged();
     void allowUploadChanged();

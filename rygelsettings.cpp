@@ -6,13 +6,15 @@
 #include <QStringList>
 #include <QtDBus>
 
+static const QLatin1String RYGEL_DBUS_INTERFACE = QLatin1String("org.gnome.Rygel1");
+
 RygelSettings::RygelSettings(QObject *parent)
     : QObject(parent)
     , m_keyFile(g_key_file_new())
     , m_available(false)
     , m_fdo(0)
     , m_dirty(false)
-    , m_watcher(QLatin1String("org.gnome.Rygel1"), QDBusConnection::sessionBus())
+    , m_watcher(RYGEL_DBUS_INTERFACE, QDBusConnection::sessionBus())
 {
     QFile binary(QLatin1String("/usr/bin/rygel"));
     m_available = binary.exists();
@@ -141,7 +143,7 @@ bool RygelSettings::running() const
     }
 
     QDBusMessage reply = m_fdo->call(QLatin1String("ListNames"));
-    return reply.arguments().first().toStringList().contains(QLatin1String("org.gnome.Rygel1"));
+    return reply.arguments().first().toStringList().contains(RYGEL_DBUS_INTERFACE);
 }
 
 bool RygelSettings::dirty() const

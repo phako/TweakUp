@@ -65,7 +65,7 @@ Page {
                 LabelledSwitch {
                     width: column.width
                     text: qsTr("Share media files that do not have a DLNA profile")
-                    checked: !upnpSettings.strictSharing
+                    checked: upnpSettings.strictSharing
                     onCheckedChanged: {
                         if (checked == upnpSettings.strictSharing) {
                             upnpSettings.strictSharing = !checked;

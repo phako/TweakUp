@@ -40,7 +40,7 @@ Page {
                     text: qsTr("Synchronize settings")
                     Connections {
                         target: upnpSettings
-                        onDirtyChanged: fade.start()
+                        onDirtyChanged: paDirtyFade.start()
                     }
 
                     onClicked: upnpSettings.restart();
@@ -174,7 +174,7 @@ Page {
                 }
 
                 PropertyAnimation {
-                    id: fade
+                    id: paDirtyFade
                     target: button
                     property: "opacity"
                     to: upnpSettings.dirty ? 1.0 : 0

@@ -221,6 +221,8 @@ Page {
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
             anchors.leftMargin: 16
+            anchors.right: imgSharing.left
+            anchors.rightMargin: 16
             platformStyle: LabelStyle {
                 textColor: "white"
                 fontPixelSize: 28
@@ -228,6 +230,7 @@ Page {
         }
 
         Image {
+            id: imgSharing
             anchors.right: parent.right
             anchors.leftMargin: 10
             anchors.rightMargin: 16

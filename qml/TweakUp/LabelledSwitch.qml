@@ -31,6 +31,8 @@ Item {
         wrapMode: Text.WordWrap
         anchors.left: parent.left
         anchors.leftMargin: indent ? 40 : 10;
+        anchors.right: swInternalSwitch.left
+        anchors.rightMargin: 16
         id: lblInternalLabel
         font.pixelSize: 26
         font.bold: true

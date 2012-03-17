@@ -56,12 +56,15 @@ HEADERS += \
     rygelsettings.h \
     focuseventfilter.h
 
-xml.files += \
-    data/xml/avc-eac3.xml \
-    data/xml/png.xml \
-    data/xml/png-extra.xml
-xml.path = /usr/share/gupnp-dlna/dlna-profiles
+#xml.files += \
+#    data/xml/avc-eac3.xml \
+#    data/xml/png.xml \
+#    data/xml/png-extra.xml
+#xml.path = /usr/share/gupnp-dlna/dlna-profiles
 
-INSTALLS += xml
+#INSTALLS += xml
 
 DEFINES += QT_NO_CAST_TO_ASCII QT_NO_CAST_FROM_ASCII
+
+RESOURCES += \
+    res.qrc

@@ -1,48 +1,48 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="de_DE" version="2.0">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="it" version="2.0">
 <context>
     <name>MainPage</name>
     <message>
         <source>Synchronize settings</source>
-        <translation>Einstellungen übernehmen</translation>
+        <translation>Sincronizza impostazioni</translation>
     </message>
     <message>
         <source>Configuration</source>
-        <translation>Konfiguration</translation>
+        <translation>Configurazione</translation>
     </message>
     <message>
         <source>Audio transcoding</source>
-        <translation>Audiokonvertierung</translation>
+        <translation>Transcodifica audio</translation>
     </message>
     <message>
         <source>Share media files that do not have a DLNA profile</source>
-        <translation>Mediendateien ohne DLNA-Profil teilen</translation>
+        <translation>Condividi files multimediali che non hanno un profilo DLNA</translation>
     </message>
     <message>
         <source>Other UPnP devices may upload media files to the phone</source>
-        <translation>Andere UPnP-Geräte können Mediendateien auf dieses Telefon hochladen</translation>
+        <translation>Altri dispositivi UPnP possono aggiungere files multimediali sul telefono</translation>
     </message>
     <message>
         <source>UPnP devices may remove files uploaded via UPnP</source>
-        <translation>UPnP-Geräte dürfen Dateien von diesem Gerät löschen, die mit UPnP hochgeladen wurden</translation>
+        <translation>Altri dispositivi UPnP possono rimuovere files aggiunti via UPnP</translation>
     </message>
     <message>
         <source>Name on network</source>
-        <translation>Name im Netzwerk</translation>
+        <translation>Nome in rete</translation>
     </message>
     <message>
         <source>Only share when connected to this access point</source>
-        <translation>Mediendateien nur teilen, wenn das Telefon mit diesem Accesspoint verbunden ist</translation>
+        <translation>Condividi solo quando connesso a questa rete</translation>
     </message>
     <message>
         <source>Tweak media sharing settings</source>
-        <translation>Medienübertragungseinstellungen optimieren</translation>
+        <translation>Modifica impostazioni di condivisione files multimediali</translation>
     </message>
 </context>
 <context>
     <name>NotAvailable</name>
     <message>
         <source>Network media sharing is not available in this version. Please update to PR1.2 if available</source>
-        <translation>Netzwerkmedienübertragung ist nicht verfügbar. Bitte aktualisieren sie auf PR1.2 falls verfügbar</translation>
+        <translation>Condivisione in rete di files multimediali non e&apos; disponibile in questa versione del sistema. Aggiorna a PR1.2 se disponibile</translation>
     </message>
 </context>
 </TS>

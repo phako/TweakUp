@@ -1,0 +1,7 @@
+[main]
+host = https://www.transifex.net
+
+[TweakUp.master]
+file_filter = i18n/tr_<lang>.ts
+source_lang = en
+

@@ -30,6 +30,10 @@ PageStackWindow {
         id: notAvailablePage
     }
 
+    About {
+        id: pgAbout
+    }
+
     Component.onCompleted: {
         theme.inverted = true;
         if (upnpSettings.available()) {

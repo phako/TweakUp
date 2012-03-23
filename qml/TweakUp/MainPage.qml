@@ -24,6 +24,16 @@ Page {
     id: pgMain
     orientationLock: PageOrientation.LockPortrait
 
+    tools: ToolBarLayout {
+        ToolIcon {
+            anchors.right: parent.right
+            iconId: "toolbar-favorite-mark"
+            onClicked: {
+                pageStack.push(pgAbout)
+            }
+        }
+    }
+
     Flickable {
         id: flckContent
         clip: true

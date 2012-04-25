@@ -53,6 +53,8 @@ Page {
                   "  <li>fr: Corentin Julé</li>" +
                   "  <li>gl, gl_ES, es, es_ES: Miguel García Núñez, Adolfo Jayme Barrientos</li>" +
                   "  <li>it: Fabio Rosciano</li>" +
+                  "  <li>nl: \"localhost\"</li>" +
+                  "  <li>sv: \"bugmenot\"</li>" +
                   "</ul>" +
                   "<a href=\"https://www.transifex.net/projects/p/TweakUp\">https://www.transifex.net/projects/p/TweakUp</a></p>" +
 

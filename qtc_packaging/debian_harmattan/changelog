@@ -1,3 +1,8 @@
+tweakup (1.0.2) unstable; urgency=low
+  * Add nl and sv translations
+
+ -- Jens Georg <mail+tweakup@jensge.org>  Wed, 25 Apr 2012 10:23:47 +0200
+
 tweakup (1.0.1) unstable; urgency=low
   * Import translations from Transifex
 
